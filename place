@@ -1,0 +1,42 @@
+package multiselect1;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Place{
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "C:\\browser drivers\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+//		driver.manage().window().maximize();
+		driver.get("file:///D:/example2.html");
+	WebElement e = driver.findElement(By.cssSelector("select#food"));
+		Select drop = new Select(e);
+		int total = drop.getOptions().size();
+		System.out.println(total);
+		System.out.println(drop.isMultiple());
+		for(int i=0; i<total; i++)
+			drop.selectByIndex(i);
+		Thread.sleep(4000);
+		drop.deselectAll();
+		
+		for(int i=0; i<total; i+=2)
+			drop.selectByIndex(i);
+		
+		System.out.println(drop.getFirstSelectedOption().getText());
+		
+	List<WebElement> l = drop.getAllSelectedOptions();
+	System.out.println("All selected options : ");
+		for(int i=0; i<l.size(); i++)
+			System.out.println(l.get(i).getText());
+		
+List<WebElement> l2 = drop.getOptions();
+		System.out.println("All options : ");
+			for(int i=0; i<l2.size(); i++)
+				System.out.println(l2.get(i).getText());	
+	}
+}
